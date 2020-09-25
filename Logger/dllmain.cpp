@@ -90,14 +90,14 @@ void Logger::LogToConsole(int messageType, const char* MessageFrom, const char* 
 void Logger::LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message) {
 	const int bufferSize = MAX_PATH;
 	char oldDir[bufferSize];
-	GetCurrentDirectory(bufferSize, oldDir);
+	GetCurrentDirectory(bufferSize, (LPWSTR)oldDir);
 
 	if (_chdir("Logs")) {
 		if (_mkdir("Logs")) {
 		}
 	}
 
-	SetCurrentDirectory(oldDir);
+	SetCurrentDirectory((LPWSTR)oldDir);
 
 	ofstream LogFile;
 	LogFile.open("Logs/Logger.log", ios::app);
