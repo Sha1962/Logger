@@ -35,5 +35,11 @@
 
 #endif
 
-DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message);
-DLL_PORTING void LogToConsole(int messageType, const char* MessageFrom, const char* Message);
+class DLL_PORTING Logger {
+public:
+	Logger() {};
+	Logger(const Logger&) {};
+	~Logger() {};
+	void LogToConsole(int messageType, const char* MessageFrom, const char* Message);
+	void LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message);	
+};

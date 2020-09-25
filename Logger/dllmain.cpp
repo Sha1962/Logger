@@ -30,7 +30,7 @@ SYSTEMTIME GetSystemTime() {
 	return SystemTime;
 }
 
-DLL_PORTING void LogToConsole(int messageType, const char* MessageFrom, const char* Message)
+void Logger::LogToConsole(int messageType, const char* MessageFrom, const char* Message)
 {
 	int Text_Color = LOG_BRIGHTWHITE;
 
@@ -87,7 +87,7 @@ DLL_PORTING void LogToConsole(int messageType, const char* MessageFrom, const ch
 	SetConsoleTextAttribute(hConsole, LOG_BRIGHTWHITE);
 }
 
-DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message) {
+void Logger::LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message) {
 	const int bufferSize = MAX_PATH;
 	char oldDir[bufferSize];
 	GetCurrentDirectory(bufferSize, oldDir);
@@ -139,8 +139,6 @@ DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFro
 	LogFile << " : MESSAGE : ";
 	LogFile << Message << endl;
 	LogFile.close();
-
-	
 
 	if (Console) {
 		LogToConsole(messageType, MessageFrom, Message);
