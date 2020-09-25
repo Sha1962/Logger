@@ -33,8 +33,8 @@ SYSTEMTIME GetSystemTime() {
 DLL_PORTING void LogToConsole(int messageType, const char* MessageFrom, const char* Message)
 {
 	int Text_Color = LOG_BRIGHTWHITE;
-	HANDLE  hConsole;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	SYSTEMTIME SystemTime = GetSystemTime();
 
@@ -85,6 +85,25 @@ DLL_PORTING void LogToConsole(int messageType, const char* MessageFrom, const ch
 	SetConsoleTextAttribute(hConsole, Text_Color);
 	cout << Message << endl;
 	SetConsoleTextAttribute(hConsole, LOG_BRIGHTWHITE);
+}
+
+DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message) {
+	const int bufferSize = MAX_PATH;
+	char oldDir[bufferSize];
+	GetCurrentDirectory(bufferSize, oldDir);
+
+	if (_chdir("Logs")) {
+		if (_mkdir("Logs")) {
+		}
+	}
+
+	// create file and write
+
+	SetCurrentDirectory(oldDir);
+
+	if (Console) {
+		LogToConsole(messageType, MessageFrom, Message);
+	}
 }
 
 

@@ -35,4 +35,5 @@
 
 #endif
 
+DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message);
 DLL_PORTING void LogToConsole(int messageType, const char* MessageFrom, const char* Message);

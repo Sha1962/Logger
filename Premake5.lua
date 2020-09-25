@@ -8,7 +8,6 @@ workspace "LoggerProject"
 	
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-
 include "Logger/Logger.lua"
 include "Tester/Tester.lua"
 
