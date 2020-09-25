@@ -40,6 +40,12 @@ void Logger::LogToConsole(int messageType, const char* MessageFrom, const char* 
 
 	SetConsoleTextAttribute(hConsole, LOG_BRIGHTWHITE);
 	cout << "[";
+	cout << setw(2) << setfill('0') << SystemTime.wDay << "/";
+	cout << setw(2) << setfill('0') << SystemTime.wMonth << "/";
+	cout << setw(2) << setfill('0') << SystemTime.wYear;
+	cout << "] ";
+
+	cout << "[";
 	cout << setw(2) << setfill('0') << SystemTime.wHour << ":";
 	cout << setw(2) << setfill('0') << SystemTime.wMinute << ":";
 	cout << setw(2) << setfill('0') << SystemTime.wSecond;
@@ -88,8 +94,8 @@ void Logger::LogToConsole(int messageType, const char* MessageFrom, const char* 
 }
 
 void Logger::LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message) {
-	const int bufferSize = MAX_PATH;
-	char oldDir[bufferSize];
+	const int bufferSize = 520;
+	WCHAR oldDir[bufferSize];
 	GetCurrentDirectory(bufferSize, (LPWSTR)oldDir);
 
 	if (_chdir("Logs")) {
@@ -103,6 +109,12 @@ void Logger::LogToFile(bool Console, int messageType, const char* MessageFrom, c
 	LogFile.open("Logs/Logger.log", ios::app);
 
 	SYSTEMTIME SystemTime = GetSystemTime();
+
+	LogFile << "[";
+	LogFile << setw(2) << setfill('0') << SystemTime.wDay << "/";
+	LogFile << setw(2) << setfill('0') << SystemTime.wMonth << "/";
+	LogFile << setw(2) << setfill('0') << SystemTime.wYear;
+	LogFile << "] ";
 
 	LogFile << "[";
 	LogFile << setw(2) << setfill('0') << SystemTime.wHour << ":";
