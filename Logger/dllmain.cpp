@@ -96,9 +96,11 @@ DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFro
 		if (_mkdir("Logs")) {
 		}
 	}
-	
+
+	SetCurrentDirectory(oldDir);
+
 	ofstream LogFile;
-	LogFile.open("Logger.log", ios::app);
+	LogFile.open("Logs/Logger.log", ios::app);
 
 	SYSTEMTIME SystemTime = GetSystemTime();
 
@@ -138,7 +140,7 @@ DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFro
 	LogFile << Message << endl;
 	LogFile.close();
 
-	SetCurrentDirectory(oldDir);
+	
 
 	if (Console) {
 		LogToConsole(messageType, MessageFrom, Message);
