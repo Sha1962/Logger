@@ -4,6 +4,7 @@
 
 #include <windows.h>
 #include <iostream>
+#include <fstream>
 #include <ctime>
 #include <iomanip>
 #include <direct.h>

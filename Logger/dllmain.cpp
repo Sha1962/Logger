@@ -96,8 +96,47 @@ DLL_PORTING void LogToFile(bool Console, int messageType, const char* MessageFro
 		if (_mkdir("Logs")) {
 		}
 	}
+	
+	ofstream LogFile;
+	LogFile.open("Logger.log", ios::app);
 
-	// create file and write
+	SYSTEMTIME SystemTime = GetSystemTime();
+
+	LogFile << "[";
+	LogFile << setw(2) << setfill('0') << SystemTime.wHour << ":";
+	LogFile << setw(2) << setfill('0') << SystemTime.wMinute << ":";
+	LogFile << setw(2) << setfill('0') << SystemTime.wSecond;
+	LogFile << "] ";
+	LogFile << "FROM : ";
+	LogFile << MessageFrom;
+
+	string MsgType;
+	switch (messageType) {
+	case 0: {
+		MsgType = "INFORMATION ";
+		break;
+	}
+	case 1: {
+		MsgType = "WARNING     ";
+		break;
+	}
+	case 2: {
+		MsgType = "TRACE       ";
+		break;
+	}
+	case 3: {
+		MsgType = "EVENT       ";
+		break;
+	}
+	default:
+		break;
+	}
+
+	LogFile << " : TYPE : ";
+	LogFile << MsgType;
+	LogFile << " : MESSAGE : ";
+	LogFile << Message << endl;
+	LogFile.close();
 
 	SetCurrentDirectory(oldDir);
 
