@@ -13,7 +13,10 @@ project "Logger"
 	}
 
 	includedirs {
-		"Headers"
+		"Headers",
+		"Input",
+		"Window",
+		"Logger"
     }
 	
 	filter "system:windows"

@@ -1,20 +1,26 @@
 
 #include "Imports.h"
 
+
+using namespace std;
+
 int main() {
-	Logger* logger;
-	logger = new Logger;
+	MSG msg = { 0 };
+	ZeroMemory(&msg, sizeof(msg));
 
-	logger->LogToConsole(LOG_WARN, "TESTER", "TEST");
-	logger->LogToConsole(LOG_INFO, "TESTER", "TEST");
-	logger->LogToConsole(LOG_TRACE, "TESTER", "TEST");
-	logger->LogToConsole(LOG_EVENT, "TESTER", "TEST");
-	logger->LogToFile(true, LOG_INFO, "TESTER", "TEST");
+	LoggerInit();
+	LogToConsole(1, "TESTER", "TEST");
+	
+	while (!GetExit()) {
+		
+		if (PeekMessage(&msg, NULL, NULL, NULL, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
 
-	system("pause");
+	}
 
-	delete logger;
-	logger = 0;
 	return 0;
 }
 

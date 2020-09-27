@@ -13,7 +13,9 @@ project "Tester"
 	}
 
 	includedirs {
-		"../Logger/Headers"	
+		"../Logger/Headers",
+		"../Logger/Window",
+		"../Logger/Input"
     	}
 	
 	links
