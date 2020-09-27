@@ -1,16 +1,17 @@
 #pragma once
-#include <Windows.h>
+#include "windows.h"
 
 LRESULT CALLBACK loggerProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);
 
 class LoggerWindow {
 public:
 	LoggerWindow();
-	LoggerWindow(const LoggerWindow&) {};
+	LoggerWindow(const LoggerWindow&);
 	void CloseWindow();
+	void CreateObjects();
 	~LoggerWindow();
-
-	HWND m_hwnd = NULL;
+	HWND Objs[2];
+	HWND m_hwnd;
 private:
 	HINSTANCE hinstance = NULL;
 	LPWSTR WindowName = L"Logger";
@@ -18,6 +19,7 @@ private:
 	LPCWSTR TITLE = L"Logger";
 	int WIDTH = 400;
 	int HEIGHT = 800;
-
+	
+	
 	void CreateLoggerWindow();
 };

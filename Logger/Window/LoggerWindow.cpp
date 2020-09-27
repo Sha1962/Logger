@@ -1,5 +1,11 @@
 #include "LoggerWindow.h"
 
+#define IDBut1 1
+#define IDBut2 2
+
+LRESULT CALLBACK InputProc(int nCode, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK loggerProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);
+
 void LoggerWindow::CreateLoggerWindow()
 {
 	hinstance = GetModuleHandle(L"Tester.exe");
@@ -14,13 +20,13 @@ void LoggerWindow::CreateLoggerWindow()
 	wc.hIcon = (HICON)LoadImageW(NULL, ICON, IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
 	wc.hIconSm = wc.hIcon;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = WindowName;
 
 	RegisterClassEx(&wc);
 
-	int posX = (GetSystemMetrics(SM_CXSCREEN) - WIDTH);
+	int posX = 5;//(GetSystemMetrics(SM_CXSCREEN) - WIDTH);
 	int posY = 5;
 
 	int Style = WS_OVERLAPPED| WS_SYSMENU | WS_MINIMIZEBOX | WS_THICKFRAME;
@@ -38,12 +44,18 @@ void LoggerWindow::CreateLoggerWindow()
 		hinstance,
 		NULL);
 
+	CreateObjects();
+
 	ShowWindow(m_hwnd, SW_SHOW);
-	//SetForegroundWindow(m_hwnd);
-	//SetFocus(m_hwnd);
+	UpdateWindow(m_hwnd);
 }
 
 LoggerWindow::LoggerWindow()
+{
+	CreateLoggerWindow();
+}
+
+LoggerWindow::LoggerWindow(const LoggerWindow&)
 {
 	CreateLoggerWindow();
 }
@@ -60,22 +72,28 @@ void LoggerWindow::CloseWindow()
 	return;
 }
 
+void LoggerWindow::CreateObjects() {
+
+	Objs[0] = CreateWindowW(TEXT("button"),
+							TEXT("Button 1"),        
+							WS_VISIBLE | WS_CHILD,  
+							10, 10,               
+							105, 33,              
+							m_hwnd,                   
+							(HMENU)0, NULL, NULL);   
+
+	Objs[1] = CreateWindowW(TEXT("button"),
+							TEXT("Button 2"),
+							WS_VISIBLE | WS_CHILD,
+							10, 45,
+							105, 33,
+							m_hwnd,
+							(HMENU)1, NULL, NULL);
+}
+
 LoggerWindow::~LoggerWindow()
 {
 	CloseWindow();
 }
 
-LRESULT CALLBACK loggerProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam) {
-	switch (umessage)
-	{
-		case WM_CLOSE:
-			DestroyWindow(hwnd);
-			break;
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
-		default:
-			return DefWindowProc(hwnd, umessage, wparam, lparam);
-	}
-	return 0;
-}
+
