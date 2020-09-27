@@ -11,6 +11,6 @@ This DLL Allows logging to the Console or to a file.
 	
 	Log Window, 
 	
-		CTRL ALT O, opens the window.
-		CTRL ALT C, closes the window.
+		L_CTRL L_ALT O, opens the window.
+		L_CTRL L_ALT C, closes the window.
 
