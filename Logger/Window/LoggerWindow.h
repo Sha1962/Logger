@@ -10,7 +10,7 @@ public:
 	void CloseWindow();
 	void CreateObjects();
 	~LoggerWindow();
-	HWND Objs[2];
+	HWND Objs[3];
 	HWND m_hwnd;
 private:
 	HINSTANCE hinstance = NULL;

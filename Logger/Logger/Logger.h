@@ -3,8 +3,6 @@
 #include "Defines.h"
 #include "LoggerWindow.h"
 
-
-
 SYSTEMTIME GetSystemTime();
 
 class Logger {
@@ -16,6 +14,7 @@ public:
 	void LogToFile(bool Console, int messageType, const char* MessageFrom, const char* Message);
 	void ShowWindow();
 	void CloseWindow();
+
 	LoggerWindow* loggerWindow = NULL;
 	bool ExitLogger = false;
 private:

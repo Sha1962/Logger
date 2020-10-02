@@ -3,11 +3,12 @@
 #include "Input.h"
 
 #define DOWN input->IsKeyDown
+#define VK_O 79
+#define VK_C 67
 
 using namespace std;
 
 HINSTANCE dllInstance = NULL;
-
 
 Logger* logger;
 Input* input;
@@ -34,30 +35,37 @@ LRESULT CALLBACK loggerProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lpar
 	PAINTSTRUCT ps;
 	HDC hdc;
 	switch (umessage)
-	{
+	{ 
 		case WM_COMMAND:
-			switch (HIWORD(wparam)) {
-				case BN_CLICKED: {
-					switch (LOWORD(wparam))
-					{
-						case 0:
-						{
-							MessageBox(NULL, L"Button 1", L"Dialog Box", MB_OK);
-							break;
-						}
-						case 1:
-						{
-							MessageBox(NULL, L"Button 2", L"Dialog Box", MB_OK);
-							break;
-						}
-					}
+		{
+			switch (HIWORD(wparam))
+			{
+			case BN_CLICKED:
+			{
+				switch (LOWORD(wparam))
+				{
+				case 1:
+				{
+					//MessageBox(NULL, L"Button 1", L"Dialog Box", MB_OK);
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "BUTTON 1 CLICKED");
 					break;
 				}
-
+				case 2:
+				{
+					//MessageBox(NULL, L"Button 2", L"Dialog Box", MB_OK);
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "BUTTON 2 CLICKED");
+					break;
+				}
 				default:
 					break;
+				}
+				break;
 			}
-		break;
+			default:
+				break;
+			}
+			break;
+		}
 		case WM_CLOSE:
 			logger->LogToConsole(LOG_INFO, "LOGGER", "LOGGER WINDOW CLOSED");
 			logger->CloseWindow();
@@ -92,16 +100,16 @@ LRESULT CALLBACK InputProc(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 	}
 
-	if (DOWN(27)) {
+	if (DOWN(VK_ESCAPE)) {
 		logger->ExitLogger = true;
 	}
 
-	if ((DOWN(162)) && (DOWN(79)) && (DOWN(164))) {
+	if ((DOWN(VK_LCONTROL)) && (DOWN(VK_O)) && (DOWN(VK_LMENU))) {
 		logger->LogToConsole(LOG_INFO, "LOGGER", "LOGGER WINDOW OPENED");
 		logger->ShowWindow();
 	}
 
-	if ((DOWN(162)) && (DOWN(67)) && (DOWN(164))) {
+	if ((DOWN(VK_LCONTROL)) && (DOWN(VK_C)) && (DOWN(VK_LMENU))) {
 		logger->LogToConsole(LOG_INFO, "LOGGER", "LOGGER WINDOW CLOSED");
 		logger->CloseWindow();
 	}

@@ -1,8 +1,5 @@
 #include "LoggerWindow.h"
 
-#define IDBut1 1
-#define IDBut2 2
-
 LRESULT CALLBACK InputProc(int nCode, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK loggerProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam);
 
@@ -74,21 +71,30 @@ void LoggerWindow::CloseWindow()
 
 void LoggerWindow::CreateObjects() {
 
-	Objs[0] = CreateWindowW(TEXT("button"),
-							TEXT("Button 1"),        
-							WS_VISIBLE | WS_CHILD,  
-							10, 10,               
-							105, 33,              
-							m_hwnd,                   
-							(HMENU)0, NULL, NULL);   
+	Objs[0] = CreateWindowW(WindowName,
+		TEXT("Buttons"),
+		WS_VISIBLE | WS_CHILD | WS_DLGFRAME ,
+		5, 5,
+		120, 89,
+		m_hwnd,
+		(HMENU)0, NULL, NULL);
 
 	Objs[1] = CreateWindowW(TEXT("button"),
+							TEXT("Button 1"),        
+							WS_VISIBLE | WS_CHILD | SS_NOTIFY,
+							5, 7,               
+							105, 33,              
+							Objs[0],
+							(HMENU)1, NULL, NULL);   
+
+	Objs[2] = CreateWindowW(TEXT("button"),
 							TEXT("Button 2"),
-							WS_VISIBLE | WS_CHILD,
-							10, 45,
+							WS_VISIBLE | WS_CHILD | SS_NOTIFY,
+							5, 45,
 							105, 33,
-							m_hwnd,
-							(HMENU)1, NULL, NULL);
+							Objs[0],
+							(HMENU)2, NULL, NULL);
+	
 }
 
 LoggerWindow::~LoggerWindow()
