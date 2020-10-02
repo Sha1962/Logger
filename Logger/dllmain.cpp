@@ -46,14 +46,37 @@ LRESULT CALLBACK loggerProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lpar
 				{
 				case 1:
 				{
-					//MessageBox(NULL, L"Button 1", L"Dialog Box", MB_OK);
 					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "BUTTON 1 CLICKED");
 					break;
 				}
 				case 2:
 				{
-					//MessageBox(NULL, L"Button 2", L"Dialog Box", MB_OK);
 					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "BUTTON 2 CLICKED");
+					break;
+				}
+				case 4:
+				{
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "BUTTON 3 CLICKED");
+					break;
+				}
+				case 5:
+				{
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "BUTTON 4 CLICKED");
+					break;
+				}
+				case 6:
+				{
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "NEW CLICKED");
+					break;
+				}
+				case 7:
+				{
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "OPEN CLICKED");
+					break;
+				}
+				case 8:
+				{
+					logger->LogToFile(true, LOG_EVENT, "LOG WINDOW", "QUIT CLICKED");
 					break;
 				}
 				default:

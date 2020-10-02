@@ -9,8 +9,9 @@ public:
 	LoggerWindow(const LoggerWindow&);
 	void CloseWindow();
 	void CreateObjects();
+	void AddMenus(HWND hwnd);
 	~LoggerWindow();
-	HWND Objs[3];
+	HWND Objs[9];
 	HWND m_hwnd;
 private:
 	HINSTANCE hinstance = NULL;
